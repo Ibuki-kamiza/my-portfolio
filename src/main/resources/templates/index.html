@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+</head>
+<body>
+
+    <h1 th:text="${profile?.name} ?: '名前未設定'">名前</h1>
+    <p th:text="${profile?.bio} ?: '自己紹介未設定'">自己紹介</p>
+
+    <h2>スキル</h2>
+    <ul>
+        <li th:each="skill : ${skills}" th:text="${skill.name}">スキル名</li>
+    </ul>
+
+    <h2>作品</h2>
+    <ul>
+        <li th:each="work : ${works}" th:text="${work.title}">作品名</li>
+    </ul>
+
+</body>
+</html>

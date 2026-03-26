@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理画面ダッシュボード</title>
+</head>
+<body>
+
+    <h1>管理画面</h1>
+
+    <nav>
+        <a th:href="@{/admin/dashboard}">ダッシュボード</a>
+        <a th:href="@{/admin/works}">作品管理</a>
+        <a th:href="@{/admin/blog}">ブログ管理</a>
+        <a th:href="@{/admin/contacts}">お問い合わせ</a>
+        <a th:href="@{/admin/logout}">ログアウト</a>
+    </nav>
+
+    <h2>概要</h2>
+    <ul>
+        <li>作品数: <span th:text="${workCount}">0</span></li>
+        <li>ブログ記事数: <span th:text="${blogCount}">0</span></li>
+        <li>お問い合わせ数: <span th:text="${contactCount}">0</span></li>
+    </ul>
+
+</body>
+</html>
