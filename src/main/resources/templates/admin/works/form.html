@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>作品編集</title>
+</head>
+<body>
+
+    <h1 th:text="${work.id} ? '作品を編集' : '作品を追加'">作品フォーム</h1>
+    <a th:href="@{/admin/works}">一覧へ戻る</a>
+
+    <form th:action="${work.id} ? @{/admin/works/{id}/edit(id=${work.id})} : @{/admin/works/new}"
+          th:object="${work}" method="post">
+
+        <div>
+            <label>タイトル</label>
+            <input type="text" th:field="*{title}" required>
+        </div>
+        <div>
+            <label>説明</label>
+            <textarea th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <label>技術スタック</label>
+            <input type="text" th:field="*{techStack}" placeholder="Java, Spring Boot, MySQL">
+        </div>
+        <div>
+            <label>画像URL</label>
+            <input type="text" th:field="*{imageUrl}">
+        </div>
+        <div>
+            <label>GitHub URL</label>
+            <input type="text" th:field="*{githubUrl}">
+        </div>
+        <div>
+            <label>デモURL</label>
+            <input type="text" th:field="*{demoUrl}">
+        </div>
+        <div>
+            <label>公開する</label>
+            <input type="checkbox" th:field="*{published}">
+        </div>
+
+        <button type="submit">保存</button>
+    </form>
+
+</body>
+</html>
