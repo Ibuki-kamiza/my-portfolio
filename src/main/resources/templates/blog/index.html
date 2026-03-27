@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログ</title>
+</head>
+<body>
+
+    <h1>ブログ</h1>
+    <a th:href="@{/}">トップへ戻る</a>
+
+    <div th:each="post : ${posts}">
+        <h2>
+            <a th:href="@{/blog/{id}(id=${post.id})}" th:text="${post.title}">タイトル</a>
+        </h2>
+        <p th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</p>
+    </div>
+
+</body>
+</html>
