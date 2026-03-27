@@ -3,41 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>お問い合わせ管理</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <h1>お問い合わせ管理</h1>
-    <a th:href="@{/admin/dashboard}">ダッシュボードへ戻る</a>
+    <nav class="admin-nav">
+        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
+        <ul class="admin-nav-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
+        </ul>
+    </nav>
 
-    <table>
-        <thead>
-            <tr>
-                <th>名前</th>
-                <th>メール</th>
-                <th>メッセージ</th>
-                <th>状態</th>
-                <th>受信日</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="contact : ${contacts}">
-                <td th:text="${contact.name}">名前</td>
-                <td th:text="${contact.email}">メール</td>
-                <td th:text="${contact.message}">メッセージ</td>
-                <td th:text="${contact.isRead} ? '既読' : '未読'">状態</td>
-                <td th:text="${#temporals.format(contact.createdAt, 'yyyy/MM/dd')}">日付</td>
-                <td>
-                    <form th:action="@{/admin/contacts/{id}/read(id=${contact.id})}" method="post">
-                        <button type="submit" th:disabled="${contact.isRead}">既読にする</button>
-                    </form>
-                    <form th:action="@{/admin/contacts/{id}/delete(id=${contact.id})}" method="post">
-                        <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="admin-container">
+        <h1>お問い合わせ管理</h1>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>メール</th>
+                    <th>メッセージ</th>
+                    <th>状態</th>
+                    <th>受信日</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="contact : ${contacts}">
+                    <td th:text="${contact.name}">名前</td>
+                    <td th:text="${contact.email}">メール</td>
+                    <td th:text="${contact.message}">メッセージ</td>
+                    <td th:text="${contact.isRead} ? '既読' : '未読'">状態</td>
+                    <td th:text="${#temporals.format(contact.createdAt, 'yyyy/MM/dd')}">日付</td>
+                    <td>
+                        <form th:action="@{/admin/contacts/{id}/read(id=${contact.id})}" method="post" style="display:inline">
+                            <button type="submit" th:disabled="${contact.isRead}">既読にする</button>
+                        </form>
+                        <form th:action="@{/admin/contacts/{id}/delete(id=${contact.id})}" method="post" style="display:inline">
+                            <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

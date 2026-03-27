@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>ブログ管理</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <h1>ブログ管理</h1>
-    <a th:href="@{/admin/dashboard}">ダッシュボードへ戻る</a>
-    <a th:href="@{/admin/blog/new}">新規追加</a>
+    <nav class="admin-nav">
+        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
+        <ul class="admin-nav-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
+        </ul>
+    </nav>
 
-    <table>
-        <thead>
-            <tr>
-                <th>タイトル</th>
-                <th>公開</th>
-                <th>作成日</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="post : ${posts}">
-                <td th:text="${post.title}">タイトル</td>
-                <td th:text="${post.published} ? '公開' : '非公開'">公開</td>
-                <td th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</td>
-                <td>
-                    <a th:href="@{/admin/blog/{id}/edit(id=${post.id})}">編集</a>
-                    <form th:action="@{/admin/blog/{id}/delete(id=${post.id})}" method="post">
-                        <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="admin-container">
+        <h1>ブログ管理</h1>
+        <a th:href="@{/admin/blog/new}" class="admin-btn admin-btn-dark">新規追加</a>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>タイトル</th>
+                    <th>公開</th>
+                    <th>作成日</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.title}">タイトル</td>
+                    <td th:text="${post.published} ? '公開' : '非公開'">公開</td>
+                    <td th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</td>
+                    <td>
+                        <a th:href="@{/admin/blog/{id}/edit(id=${post.id})}">編集</a>
+                        <form th:action="@{/admin/blog/{id}/delete(id=${post.id})}" method="post" style="display:inline">
+                            <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

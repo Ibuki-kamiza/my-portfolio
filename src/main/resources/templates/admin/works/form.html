@@ -3,46 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>作品編集</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <h1 th:text="${work.id} ? '作品を編集' : '作品を追加'">作品フォーム</h1>
-    <a th:href="@{/admin/works}">一覧へ戻る</a>
+    <nav class="admin-nav">
+        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
+        <ul class="admin-nav-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
+        </ul>
+    </nav>
 
-    <form th:action="${work.id} ? @{/admin/works/{id}/edit(id=${work.id})} : @{/admin/works/new}"
-          th:object="${work}" method="post">
+    <div class="admin-container">
+        <h1 th:text="${work.id} ? '作品を編集' : '作品を追加'">作品フォーム</h1>
+        <a th:href="@{/admin/works}" class="admin-btn admin-btn-outline" style="margin-bottom:32px;display:inline-block">一覧へ戻る</a>
 
-        <div>
-            <label>タイトル</label>
-            <input type="text" th:field="*{title}" required>
-        </div>
-        <div>
-            <label>説明</label>
-            <textarea th:field="*{description}"></textarea>
-        </div>
-        <div>
-            <label>技術スタック</label>
-            <input type="text" th:field="*{techStack}" placeholder="Java, Spring Boot, MySQL">
-        </div>
-        <div>
-            <label>画像URL</label>
-            <input type="text" th:field="*{imageUrl}">
-        </div>
-        <div>
-            <label>GitHub URL</label>
-            <input type="text" th:field="*{githubUrl}">
-        </div>
-        <div>
-            <label>デモURL</label>
-            <input type="text" th:field="*{demoUrl}">
-        </div>
-        <div>
-            <label>公開する</label>
-            <input type="checkbox" th:field="*{published}">
-        </div>
+        <div class="admin-form">
+            <form th:action="${work.id} ? @{/admin/works/{id}/edit(id=${work.id})} : @{/admin/works/new}"
+                  th:object="${work}" method="post">
 
-        <button type="submit">保存</button>
-    </form>
+                <div class="form-group">
+                    <label class="form-label">タイトル</label>
+                    <input type="text" th:field="*{title}" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">説明</label>
+                    <textarea th:field="*{description}" class="form-textarea"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">技術スタック</label>
+                    <input type="text" th:field="*{techStack}" class="form-input" placeholder="Java, Spring Boot, MySQL">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">画像URL</label>
+                    <input type="text" th:field="*{imageUrl}" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">GitHub URL</label>
+                    <input type="text" th:field="*{githubUrl}" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">デモURL</label>
+                    <input type="text" th:field="*{demoUrl}" class="form-input">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" th:field="*{published}" id="published">
+                        <label for="published" class="form-label" style="margin:0">公開する</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="admin-btn admin-btn-dark">保存</button>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

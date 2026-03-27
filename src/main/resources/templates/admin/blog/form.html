@@ -3,30 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>ブログ編集</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <h1 th:text="${post.id} ? '記事を編集' : '記事を追加'">ブログフォーム</h1>
-    <a th:href="@{/admin/blog}">一覧へ戻る</a>
+    <nav class="admin-nav">
+        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
+        <ul class="admin-nav-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
+        </ul>
+    </nav>
 
-    <form th:action="${post.id} ? @{/admin/blog/{id}/edit(id=${post.id})} : @{/admin/blog/new}"
-          th:object="${post}" method="post">
+    <div class="admin-container">
+        <h1 th:text="${post.id} ? '記事を編集' : '記事を追加'">ブログフォーム</h1>
+        <a th:href="@{/admin/blog}" class="admin-btn admin-btn-outline" style="margin-bottom:32px;display:inline-block">一覧へ戻る</a>
 
-        <div>
-            <label>タイトル</label>
-            <input type="text" th:field="*{title}" required>
-        </div>
-        <div>
-            <label>内容</label>
-            <textarea th:field="*{content}" rows="20"></textarea>
-        </div>
-        <div>
-            <label>公開する</label>
-            <input type="checkbox" th:field="*{published}">
-        </div>
+        <div class="admin-form">
+            <form th:action="${post.id} ? @{/admin/blog/{id}/edit(id=${post.id})} : @{/admin/blog/new}"
+                  th:object="${post}" method="post">
 
-        <button type="submit">保存</button>
-    </form>
+                <div class="form-group">
+                    <label class="form-label">タイトル</label>
+                    <input type="text" th:field="*{title}" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">内容</label>
+                    <textarea th:field="*{content}" class="form-textarea" rows="20"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" th:field="*{published}" id="published">
+                        <label for="published" class="form-label" style="margin:0">公開する</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="admin-btn admin-btn-dark">保存</button>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

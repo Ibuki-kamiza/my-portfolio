@@ -2,20 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品一覧</title>
+    <title>作品管理</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <h1>作品一覧</h1>
-    <a th:href="@{/}">トップへ戻る</a>
+    <nav class="admin-nav">
+        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
+        <ul class="admin-nav-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
+        </ul>
+    </nav>
 
-    <div th:each="work : ${works}">
-        <h2>
-            <a th:href="@{/works/{id}(id=${work.id})}" th:text="${work.title}">タイトル</a>
-        </h2>
-        <p th:text="${work.description}">説明</p>
-        <p th:text="${work.techStack}">技術スタック</p>
+    <div class="admin-container">
+        <h1>作品管理</h1>
+        <a th:href="@{/admin/works/new}" class="admin-btn admin-btn-dark">新規追加</a>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>タイトル</th>
+                    <th>技術スタック</th>
+                    <th>公開</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="work : ${works}">
+                    <td th:text="${work.title}">タイトル</td>
+                    <td th:text="${work.techStack}">技術スタック</td>
+                    <td th:text="${work.published} ? '公開' : '非公開'">公開</td>
+                    <td>
+                        <a th:href="@{/admin/works/{id}/edit(id=${work.id})}">編集</a>
+                        <form th:action="@{/admin/works/{id}/delete(id=${work.id})}" method="post" style="display:inline">
+                            <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </body>

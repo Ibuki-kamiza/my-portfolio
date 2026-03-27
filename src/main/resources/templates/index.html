@@ -2,37 +2,114 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ブログ管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${profile?.name} ?: 'Portfolio'">Portfolio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-    <h1>ブログ管理</h1>
-    <a th:href="@{/admin/dashboard}">ダッシュボードへ戻る</a>
-    <a th:href="@{/admin/blog/new}">新規追加</a>
+    <!-- ナビゲーション -->
+    <nav class="nav">
+        <div class="nav-logo" th:text="${profile?.name} ?: 'Portfolio'">Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#works">Works</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+        </ul>
+    </nav>
 
-    <table>
-        <thead>
-            <tr>
-                <th>タイトル</th>
-                <th>公開</th>
-                <th>作成日</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="post : ${posts}">
-                <td th:text="${post.title}">タイトル</td>
-                <td th:text="${post.published} ? '公開' : '非公開'">公開</td>
-                <td th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</td>
-                <td>
-                    <a th:href="@{/admin/blog/{id}/edit(id=${post.id})}">編集</a>
-                    <form th:action="@{/admin/blog/{id}/delete(id=${post.id})}" method="post">
-                        <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- ヒーロー -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <p class="section-label">Engineer Portfolio</p>
+                    <h1 class="hero-title">
+                        <span th:text="${profile?.name} ?: 'Your Name'">Your Name</span>
+                    </h1>
+                    <div class="section-divider"></div>
+                    <p class="hero-subtitle" th:text="${profile?.bio} ?: 'Java Engineer'">Java Engineer</p>
+                    <div style="margin-top: 48px; display: flex; gap: 16px;">
+                        <a th:href="@{/works}" class="btn btn-dark">View Works</a>
+                        <a th:href="@{/contact}" class="btn btn-outline">Contact</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img th:if="${profile?.avatarUrl}" th:src="${profile.avatarUrl}" alt="profile">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about" style="background-color: #ffffff;">
+        <div class="container">
+            <p class="section-label">About</p>
+            <h2 class="section-title">私について</h2>
+            <p style="max-width: 600px; color: #6b6b6b; line-height: 2;"
+               th:text="${profile?.bio} ?: ''"></p>
+            <div th:if="${profile?.githubUrl}" style="margin-top: 32px;">
+                <a th:href="${profile.githubUrl}" target="_blank" class="btn btn-outline">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills">
+        <div class="container">
+            <p class="section-label">Skills</p>
+            <h2 class="section-title">スキル</h2>
+            <div class="skills-grid">
+                <div class="skill-card" th:each="skill : ${skills}">
+                    <div class="skill-name" th:text="${skill.name}">スキル名</div>
+                    <div class="skill-category" th:text="${skill.category}">カテゴリ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works -->
+    <section class="section" id="works" style="background-color: #ffffff;">
+        <div class="container">
+            <p class="section-label">Works</p>
+            <h2 class="section-title">作品</h2>
+            <div class="works-grid">
+                <div class="work-card" th:each="work : ${works}">
+                    <div class="work-card-image">
+                        <img th:if="${work.imageUrl}" th:src="${work.imageUrl}" th:alt="${work.title}">
+                    </div>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title" th:text="${work.title}">タイトル</h3>
+                        <p style="font-size: 14px; color: #6b6b6b; margin-top: 8px;"
+                           th:text="${work.description}">説明</p>
+                        <p class="work-card-tech" th:text="${work.techStack}">技術スタック</p>
+                        <div style="margin-top: 16px; display: flex; gap: 16px;">
+                            <a th:if="${work.githubUrl}" th:href="${work.githubUrl}"
+                               target="_blank" style="font-size: 13px; text-decoration: underline;">GitHub</a>
+                            <a th:if="${work.demoUrl}" th:href="${work.demoUrl}"
+                               target="_blank" style="font-size: 13px; text-decoration: underline;">Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 48px; text-align: center;">
+                <a th:href="@{/works}" class="btn btn-outline">View All Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section">
+        <div class="container">
+            <div class="footer">
+                <p class="footer-text" th:text="${profile?.name} ?: 'Portfolio'">Portfolio</p>
+                <p class="footer-text">© 2026 All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+	<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>
