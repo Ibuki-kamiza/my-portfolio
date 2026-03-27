@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${work.title}">作品詳細</title>
+</head>
+<body>
+
+    <a th:href="@{/works}">作品一覧へ戻る</a>
+
+    <h1 th:text="${work.title}">タイトル</h1>
+    <p th:text="${work.description}">説明</p>
+    <p th:text="${work.techStack}">技術スタック</p>
+
+    <div th:if="${work.imageUrl}">
+        <img th:src="${work.imageUrl}" alt="作品画像">
+    </div>
+
+    <div th:if="${work.githubUrl}">
+        <a th:href="${work.githubUrl}" target="_blank">GitHubで見る</a>
+    </div>
+
+    <div th:if="${work.demoUrl}">
+        <a th:href="${work.demoUrl}" target="_blank">デモを見る</a>
+    </div>
+
+</body>
+</html>
