@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ブログ編集</title>
+</head>
+<body>
+
+    <h1 th:text="${post.id} ? '記事を編集' : '記事を追加'">ブログフォーム</h1>
+    <a th:href="@{/admin/blog}">一覧へ戻る</a>
+
+    <form th:action="${post.id} ? @{/admin/blog/{id}/edit(id=${post.id})} : @{/admin/blog/new}"
+          th:object="${post}" method="post">
+
+        <div>
+            <label>タイトル</label>
+            <input type="text" th:field="*{title}" required>
+        </div>
+        <div>
+            <label>内容</label>
+            <textarea th:field="*{content}" rows="20"></textarea>
+        </div>
+        <div>
+            <label>公開する</label>
+            <input type="checkbox" th:field="*{published}">
+        </div>
+
+        <button type="submit">保存</button>
+    </form>
+
+</body>
+</html>
