@@ -445,3 +445,21 @@ h1 {
     background-color: #8b7355;
     color: #ffffff;
 }
+.profile-preview {
+    margin-bottom: 12px;
+}
+
+.profile-preview img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.form-file {
+    width: 100%;
+    font-size: 14px;
+    color: #6b6b6b;
+    padding: 12px 0;
+    cursor: pointer;
+}

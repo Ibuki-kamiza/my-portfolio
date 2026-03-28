@@ -19,7 +19,7 @@
         </ul>
         <div class="admin-sidebar-logout">
             <form th:action="@{/admin/logout}" method="post">
-                <button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;cursor:pointer;padding:0;">ログアウト</button>
+                <button type="submit" class="sidebar-logout-btn">ログアウト</button>
             </form>
         </div>
     </aside>
@@ -31,8 +31,11 @@
         <div class="admin-container">
             <h1>プロフィール編集</h1>
             <div th:if="${param.saved}" class="alert-success">保存しました！</div>
+
             <div class="admin-form">
-                <form th:action="@{/admin/profile}" th:object="${profile}" method="post">
+                <form th:action="@{/admin/profile}" th:object="${profile}"
+                      method="post" enctype="multipart/form-data">
+
                     <div class="form-group">
                         <label class="form-label">名前</label>
                         <input type="text" th:field="*{name}" class="form-input" required>
@@ -46,8 +49,16 @@
                         <input type="text" th:field="*{githubUrl}" class="form-input">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">アバター画像URL</label>
-                        <input type="text" th:field="*{avatarUrl}" class="form-input">
+                        <label class="form-label">プロフィール写真（ファイルアップロード）</label>
+                        <div th:if="${profile.avatarUrl}" class="profile-preview">
+                            <img th:src="${profile.avatarUrl}" alt="現在の写真">
+                        </div>
+                        <input type="file" name="imageFile" class="form-file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">プロフィール写真URL（直接入力）</label>
+                        <input type="text" th:field="*{avatarUrl}" class="form-input"
+                               placeholder="https://... またはアップロードで自動入力">
                     </div>
                     <div class="form-group">
                         <label class="form-label">新しいパスコード（6桁・変更する場合のみ）</label>
@@ -59,7 +70,7 @@
             </div>
         </div>
     </div>
-	<script th:src="@{/js/admin.js}"></script>
 
+    <script th:src="@{/js/admin.js}"></script>
 </body>
 </html>
