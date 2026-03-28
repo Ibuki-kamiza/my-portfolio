@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ブログ編集</title>
+    <title>プロフィール編集</title>
     <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
@@ -11,10 +11,10 @@
         <div class="admin-sidebar-logo">Admin</div>
         <ul class="admin-sidebar-links">
             <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
-            <li><a th:href="@{/admin/profile}">プロフィール</a></li>
+            <li><a th:href="@{/admin/profile}" class="active">プロフィール</a></li>
             <li><a th:href="@{/admin/skills}">スキル</a></li>
             <li><a th:href="@{/admin/works}">作品</a></li>
-            <li><a th:href="@{/admin/blog}" class="active">ブログ</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
             <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
         </ul>
         <div class="admin-sidebar-logout">
@@ -29,24 +29,30 @@
             <a th:href="@{/}">← フロントへ戻る</a>
         </div>
         <div class="admin-container">
-            <h1 th:text="${post.id} ? '記事を編集' : '記事を追加'">ブログフォーム</h1>
-            <a th:href="@{/admin/blog}" class="admin-btn admin-btn-outline" style="margin-bottom:32px;display:inline-block">一覧へ戻る</a>
+            <h1>プロフィール編集</h1>
+            <div th:if="${param.saved}" class="alert-success">保存しました！</div>
             <div class="admin-form">
-                <form th:action="${post.id} ? @{/admin/blog/{id}/edit(id=${post.id})} : @{/admin/blog/new}"
-                      th:object="${post}" method="post">
+                <form th:action="@{/admin/profile}" th:object="${profile}" method="post">
                     <div class="form-group">
-                        <label class="form-label">タイトル</label>
-                        <input type="text" th:field="*{title}" class="form-input" required>
+                        <label class="form-label">名前</label>
+                        <input type="text" th:field="*{name}" class="form-input" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">内容</label>
-                        <textarea th:field="*{content}" class="form-textarea" rows="20"></textarea>
+                        <label class="form-label">自己紹介</label>
+                        <textarea th:field="*{bio}" class="form-textarea"></textarea>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox-group">
-                            <input type="checkbox" th:field="*{published}" id="published">
-                            <label for="published" class="form-label" style="margin:0">公開する</label>
-                        </div>
+                        <label class="form-label">GitHub URL</label>
+                        <input type="text" th:field="*{githubUrl}" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">アバター画像URL</label>
+                        <input type="text" th:field="*{avatarUrl}" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">新しいパスコード（6桁・変更する場合のみ）</label>
+                        <input type="password" name="newPasscode" class="form-input"
+                               maxlength="6" pattern="[0-9]{6}" placeholder="数字6桁">
                     </div>
                     <button type="submit" class="admin-btn admin-btn-dark">保存</button>
                 </form>

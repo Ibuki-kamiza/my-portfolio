@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ブログ</title>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>ブログ</title>
+	    <link rel="stylesheet" th:href="@{/css/style.css}">
+	    <link rel="stylesheet" th:href="@{/css/blog.css}">
 </head>
 <body>
 
@@ -16,6 +18,8 @@
         </h2>
         <p th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</p>
     </div>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/animations.js}"></script>
 
 </body>
 </html>

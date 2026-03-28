@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>スキル管理</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-logo">Admin</div>
+        <ul class="admin-sidebar-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/profile}">プロフィール</a></li>
+            <li><a th:href="@{/admin/skills}" class="active">スキル</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+        </ul>
+        <div class="admin-sidebar-logout">
+            <form th:action="@{/admin/logout}" method="post">
+                <button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;cursor:pointer;padding:0;">ログアウト</button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <a th:href="@{/}">← フロントへ戻る</a>
+        </div>
+        <div class="admin-container">
+            <h1>スキル管理</h1>
+            <div class="admin-form" style="margin-bottom:48px">
+                <form th:action="@{/admin/skills/new}" th:object="${skill}" method="post">
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 80px;gap:16px;align-items:end">
+                        <div class="form-group" style="margin:0">
+                            <label class="form-label">スキル名</label>
+                            <input type="text" th:field="*{name}" class="form-input" required>
+                        </div>
+                        <div class="form-group" style="margin:0">
+                            <label class="form-label">カテゴリ</label>
+                            <input type="text" th:field="*{category}" class="form-input" placeholder="Language / Framework">
+                        </div>
+                        <div class="form-group" style="margin:0">
+                            <label class="form-label">資格（任意）</label>
+                            <input type="text" th:field="*{certification}" class="form-input" placeholder="Java Silver など">
+                        </div>
+                        <div class="form-group" style="margin:0">
+                            <label class="form-label">表示順</label>
+                            <input type="number" th:field="*{displayOrder}" class="form-input" value="0">
+                        </div>
+                        <button type="submit" class="admin-btn admin-btn-dark" style="margin:0;padding:12px 16px">追加</button>
+                    </div>
+                </form>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>スキル名</th>
+                        <th>カテゴリ</th>
+                        <th>資格</th>
+                        <th>表示順</th>
+                        <th>登録日</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="skill : ${skills}">
+                        <td th:text="${skill.name}">スキル名</td>
+                        <td th:text="${skill.category}">カテゴリ</td>
+                        <td th:text="${skill.certification} ?: '-'">資格</td>
+                        <td th:text="${skill.displayOrder}">0</td>
+                        <td th:text="${skill.createdAt != null} ? ${#temporals.format(skill.createdAt, 'yyyy/MM/dd')} : '-'">日付</td>
+                        <td>
+                            <form th:action="@{/admin/skills/{id}/delete(id=${skill.id})}" method="post" style="display:inline">
+                                <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<script th:src="@{/js/admin.js}"></script>
+
+</body>
+</html>

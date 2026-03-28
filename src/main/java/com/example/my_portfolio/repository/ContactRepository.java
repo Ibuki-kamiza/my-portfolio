@@ -8,4 +8,5 @@ import com.example.my_portfolio.entity.Contact;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
     List<Contact> findAllByOrderByCreatedAtDesc();
+    long countByIsReadFalse();
 }

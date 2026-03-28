@@ -34,6 +34,9 @@ public class Contact {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
+    @Column(length = 100)
+    private String genre;
+
     @Column(name = "is_read", nullable = false)
     private Boolean isRead = false;
 

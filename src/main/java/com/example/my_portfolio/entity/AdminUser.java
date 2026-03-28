@@ -31,6 +31,15 @@ public class AdminUser {
     @Column(nullable = false, length = 255)
     private String password;
 
+    @Column(length = 255)
+    private String passcode;
+
+    @Column(name = "failed_attempts")
+    private Integer failedAttempts = 0;
+
+    @Column(name = "locked_until")
+    private LocalDateTime lockedUntil;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${profile?.name} ?: 'Portfolio'">Portfolio</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title th:text="${profile?.name} ?: 'Portfolio'">Portfolio</title>
+	    <link rel="stylesheet" th:href="@{/css/style.css}">
+	    <link rel="stylesheet" th:href="@{/css/index.css}">
+	</head>
 <body>
 
     <!-- ナビゲーション -->
@@ -17,6 +18,7 @@
             <li><a href="#works">Works</a></li>
             <li><a th:href="@{/blog}">Blog</a></li>
             <li><a th:href="@{/contact}">Contact</a></li>
+			<li><a th:href="@{/admin/login}" style="font-size:11px;opacity:0.5">Admin</a></li>
         </ul>
     </nav>
 
@@ -110,6 +112,8 @@
         </div>
     </footer>
 	<script th:src="@{/js/main.js}"></script>
+	    <script th:src="@{/js/animations.js}"></script>
+	</body>
 
 </body>
 </html>

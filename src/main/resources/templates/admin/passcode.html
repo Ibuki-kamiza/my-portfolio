@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>パスコード認証</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body class="auth-wrapper">
+
+    <div class="auth-box">
+        <h1 class="auth-title">パスコード認証</h1>
+        <p class="auth-subtitle">6桁のパスコードを入力してください</p>
+
+        <div th:if="${locked == true}" class="locked-info">
+            <p>パスコードの入力が5回失敗しました。</p>
+            <p>2時間後に再度お試しください。</p>
+        </div>
+
+        <div th:if="${error == true}" class="alert-error">
+            パスコードが違います。残り <span th:text="${remainingAttempts}">5</span> 回入力できます。
+        </div>
+
+        <form th:if="${locked != true}" th:action="@{/admin/passcode}" method="post">
+            <div class="form-group">
+                <input type="password" name="passcode" class="form-input passcode-input"
+                       maxlength="6" pattern="[0-9]{6}" placeholder="------"
+                       autofocus required>
+            </div>
+            <button type="submit" class="admin-btn admin-btn-dark" style="width:100%;text-align:center">認証</button>
+            <p class="attempts-info" th:if="${remainingAttempts != null}">
+                残り <span th:text="${remainingAttempts}">5</span> 回入力できます
+            </p>
+        </form>
+    </div>
+
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

@@ -7,45 +7,56 @@
 </head>
 <body>
 
-    <nav class="admin-nav">
-        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
-        <ul class="admin-nav-links">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-logo">Admin</div>
+        <ul class="admin-sidebar-links">
             <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
-            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/profile}">プロフィール</a></li>
+            <li><a th:href="@{/admin/skills}">スキル</a></li>
+            <li><a th:href="@{/admin/works}" class="active">作品</a></li>
             <li><a th:href="@{/admin/blog}">ブログ</a></li>
             <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
-            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
         </ul>
-    </nav>
+        <div class="admin-sidebar-logout">
+            <form th:action="@{/admin/logout}" method="post">
+                <button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;cursor:pointer;padding:0;">ログアウト</button>
+            </form>
+        </div>
+    </aside>
 
-    <div class="admin-container">
-        <h1>作品管理</h1>
-        <a th:href="@{/admin/works/new}" class="admin-btn admin-btn-dark">新規追加</a>
-
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>タイトル</th>
-                    <th>技術スタック</th>
-                    <th>公開</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="work : ${works}">
-                    <td th:text="${work.title}">タイトル</td>
-                    <td th:text="${work.techStack}">技術スタック</td>
-                    <td th:text="${work.published} ? '公開' : '非公開'">公開</td>
-                    <td>
-                        <a th:href="@{/admin/works/{id}/edit(id=${work.id})}">編集</a>
-                        <form th:action="@{/admin/works/{id}/delete(id=${work.id})}" method="post" style="display:inline">
-                            <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <a th:href="@{/}">← フロントへ戻る</a>
+        </div>
+        <div class="admin-container">
+            <h1>作品管理</h1>
+            <a th:href="@{/admin/works/new}" class="admin-btn admin-btn-dark">新規追加</a>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>タイトル</th>
+                        <th>技術スタック</th>
+                        <th>公開</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="work : ${works}">
+                        <td th:text="${work.title}">タイトル</td>
+                        <td th:text="${work.techStack}">技術スタック</td>
+                        <td th:text="${work.published} ? '公開' : '非公開'">公開</td>
+                        <td>
+                            <a th:href="@{/admin/works/{id}/edit(id=${work.id})}">編集</a>
+                            <form th:action="@{/admin/works/{id}/delete(id=${work.id})}" method="post" style="display:inline">
+                                <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+	<script th:src="@{/js/admin.js}"></script>
 
 </body>
 </html>

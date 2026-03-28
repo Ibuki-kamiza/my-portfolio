@@ -1,0 +1,49 @@
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f3f0;
+}
+
+.auth-box {
+    background: #ffffff;
+    padding: 64px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-title {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+.auth-subtitle {
+    font-size: 13px;
+    color: #6b6b6b;
+    margin-bottom: 48px;
+    letter-spacing: 0.05em;
+}
+
+.passcode-input {
+    font-size: 32px;
+    letter-spacing: 0.5em;
+    text-align: center;
+}
+
+.attempts-info {
+    font-size: 13px;
+    color: #6b6b6b;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.locked-info {
+    font-size: 14px;
+    color: #cc0000;
+    text-align: center;
+    padding: 24px 0;
+    line-height: 2;
+}

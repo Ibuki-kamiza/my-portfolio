@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${work.title}">作品詳細</title>
-</head>
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title th:text="${work.title}">作品詳細</title>
+	    <link rel="stylesheet" th:href="@{/css/style.css}">
+	    <link rel="stylesheet" th:href="@{/css/works.css}">
+	</head>
 <body>
 
     <a th:href="@{/works}">作品一覧へ戻る</a>
@@ -24,6 +26,8 @@
     <div th:if="${work.demoUrl}">
         <a th:href="${work.demoUrl}" target="_blank">デモを見る</a>
     </div>
+	<script th:src="@{/js/main.js}"></script>
+	    <script th:src="@{/js/animations.js}"></script>
 
 </body>
 </html>

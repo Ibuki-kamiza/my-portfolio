@@ -4,31 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>お問い合わせ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/contact.css}">
 </head>
 <body>
 
-    <h1>お問い合わせ</h1>
-    <a th:href="@{/}">トップへ戻る</a>
+    <nav class="nav">
+        <div class="nav-logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/works}">Works</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+            <li><a th:href="@{/admin/login}" class="nav-admin-link">Admin</a></li>
+        </ul>
+    </nav>
 
-    <div th:if="${param.sent}">
-        <p>お問い合わせを受け付けました。ありがとうございます。</p>
+    <div class="contact-wrapper">
+        <div class="contact-header">
+            <p class="section-label">Contact</p>
+            <h1 class="contact-header-title">お問い合わせ</h1>
+            <p class="contact-header-subtitle">お気軽にご連絡ください。</p>
+        </div>
+
+        <div th:if="${param.sent}" class="contact-success">
+            お問い合わせを受け付けました。ありがとうございます。
+        </div>
+
+        <form th:action="@{/contact}" th:object="${contact}" method="post" class="contact-form">
+            <div class="form-group">
+                <label class="form-label">お名前</label>
+                <input type="text" th:field="*{name}" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">メールアドレス</label>
+                <input type="email" th:field="*{email}" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">ジャンル</label>
+                <select th:field="*{genre}" class="form-select" required>
+                    <option value="">選択してください</option>
+                    <option value="スキルや内容について">スキルや内容について</option>
+                    <option value="開発依頼やお仕事相談">開発依頼やお仕事相談</option>
+                    <option value="ポートフォリオについて">ポートフォリオについて</option>
+                    <option value="不具合やバグ報告">不具合やバグ報告</option>
+                    <option value="学習や活動について">学習や活動について</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">メッセージ</label>
+                <textarea th:field="*{message}" class="form-textarea" rows="10" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark">送信</button>
+        </form>
+
+        <a th:href="@{/}" class="contact-back-link">← トップへ戻る</a>
     </div>
 
-    <form th:action="@{/contact}" th:object="${contact}" method="post">
-        <div>
-            <label>お名前</label>
-            <input type="text" th:field="*{name}" required>
-        </div>
-        <div>
-            <label>メールアドレス</label>
-            <input type="email" th:field="*{email}" required>
-        </div>
-        <div>
-            <label>メッセージ</label>
-            <textarea th:field="*{message}" rows="10" required></textarea>
-        </div>
-        <button type="submit">送信</button>
-    </form>
-
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
 </body>
-</html>　　
+</html>

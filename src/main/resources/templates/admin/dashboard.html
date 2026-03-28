@@ -4,53 +4,60 @@
     <meta charset="UTF-8">
     <title>管理画面</title>
     <link rel="stylesheet" th:href="@{/css/admin.css}">
-    <style>
-        .dashboard-card {
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            display: block;
-            color: inherit;
-        }
-        .dashboard-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        }
-    </style>
 </head>
 <body>
 
-    <nav class="admin-nav">
-        <span style="color:#fff;font-size:15px;letter-spacing:0.1em">Admin</span>
-        <ul class="admin-nav-links">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-logo">Admin</div>
+        <ul class="admin-sidebar-links">
             <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/profile}">プロフィール</a></li>
+            <li><a th:href="@{/admin/skills}">スキル</a></li>
             <li><a th:href="@{/admin/works}">作品</a></li>
             <li><a th:href="@{/admin/blog}">ブログ</a></li>
-            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
-            <li><a th:href="@{/admin/logout}">ログアウト</a></li>
+            <li>
+                <a th:href="@{/admin/contacts}">
+                    お問い合わせ
+                    <span class="sidebar-badge" th:if="${unreadCount > 0}" th:text="${unreadCount}">1</span>
+                </a>
+            </li>
         </ul>
-    </nav>
+        <div class="admin-sidebar-logout">
+            <form th:action="@{/admin/logout}" method="post">
+                <button type="submit" class="sidebar-logout-btn">ログアウト</button>
+            </form>
+        </div>
+    </aside>
 
-    <div class="admin-container">
-        <h1>ダッシュボード</h1>
-        <div class="dashboard-grid">
-            <a th:href="@{/admin/works}" class="dashboard-card">
-                <div class="dashboard-card-number" th:text="${workCount}">0</div>
-                <div class="dashboard-card-label">作品</div>
-                <div style="font-size:12px;color:#8b7355;margin-top:12px;letter-spacing:0.1em">管理する →</div>
-            </a>
-            <a th:href="@{/admin/blog}" class="dashboard-card">
-                <div class="dashboard-card-number" th:text="${blogCount}">0</div>
-                <div class="dashboard-card-label">ブログ記事</div>
-                <div style="font-size:12px;color:#8b7355;margin-top:12px;letter-spacing:0.1em">管理する →</div>
-            </a>
-            <a th:href="@{/admin/contacts}" class="dashboard-card">
-                <div class="dashboard-card-number" th:text="${contactCount}">0</div>
-                <div class="dashboard-card-label">お問い合わせ</div>
-                <div style="font-size:12px;color:#8b7355;margin-top:12px;letter-spacing:0.1em">確認する →</div>
-            </a>
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <a th:href="@{/}">← フロントへ戻る</a>
+        </div>
+        <div class="admin-container">
+            <h1>ダッシュボード</h1>
+            <div class="dashboard-grid">
+                <a th:href="@{/admin/works}" class="dashboard-card">
+                    <div class="dashboard-card-number" th:text="${workCount}">0</div>
+                    <div class="dashboard-card-label">作品</div>
+                    <div class="dashboard-card-action">管理する →</div>
+                </a>
+                <a th:href="@{/admin/blog}" class="dashboard-card">
+                    <div class="dashboard-card-number" th:text="${blogCount}">0</div>
+                    <div class="dashboard-card-label">ブログ記事</div>
+                    <div class="dashboard-card-action">管理する →</div>
+                </a>
+                <a th:href="@{/admin/contacts}" class="dashboard-card">
+                    <div class="dashboard-card-number" th:text="${contactCount}">0</div>
+                    <div class="dashboard-card-label">
+                        お問い合わせ
+                        <span class="badge" th:if="${unreadCount > 0}" th:text="${unreadCount}">1</span>
+                    </div>
+                    <div class="dashboard-card-action">確認する →</div>
+                </a>
+            </div>
         </div>
     </div>
 
+    <script th:src="@{/js/admin.js}"></script>
 </body>
 </html>

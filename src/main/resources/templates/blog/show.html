@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${post.title}">ブログ記事</title>
-</head>
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title th:text="${post.title}">ブログ記事</title>
+	    <link rel="stylesheet" th:href="@{/css/style.css}">
+	    <link rel="stylesheet" th:href="@{/css/blog.css}">
+	</head>
 <body>
 
     <a th:href="@{/blog}">ブログ一覧へ戻る</a>
@@ -13,6 +15,8 @@
     <p th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</p>
 
     <div th:text="${post.content}">内容</div>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/animations.js}"></script>
 
 </body>
 </html>

@@ -30,6 +30,7 @@ public class AdminController {
         model.addAttribute("workCount", workRepository.count());
         model.addAttribute("blogCount", blogPostRepository.count());
         model.addAttribute("contactCount", contactRepository.count());
+        model.addAttribute("unreadCount", contactRepository.countByIsReadFalse());
         return "admin/dashboard";
     }
 }

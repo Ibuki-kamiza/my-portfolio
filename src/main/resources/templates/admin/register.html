@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理者登録</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body class="auth-wrapper">
+
+    <div class="auth-box">
+        <h1 class="auth-title">管理者登録</h1>
+        <p class="auth-subtitle">初回のみ登録できます</p>
+
+        <form th:action="@{/admin/register}" method="post">
+            <div class="form-group">
+                <label class="form-label">ユーザー名</label>
+                <input type="text" name="username" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">パスワード</label>
+                <input type="password" name="password" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">6桁パスコード</label>
+                <input type="password" name="passcode" class="form-input"
+                       maxlength="6" pattern="[0-9]{6}" placeholder="数字6桁" required>
+            </div>
+            <button type="submit" class="admin-btn admin-btn-dark" style="width:100%;text-align:center">登録</button>
+        </form>
+    </div>
+
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

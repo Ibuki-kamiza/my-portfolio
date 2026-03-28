@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>お問い合わせ詳細</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-logo">Admin</div>
+        <ul class="admin-sidebar-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/profile}">プロフィール</a></li>
+            <li><a th:href="@{/admin/skills}">スキル</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}" class="active">お問い合わせ</a></li>
+        </ul>
+        <div class="admin-sidebar-logout">
+            <form th:action="@{/admin/logout}" method="post">
+                <button type="submit" class="sidebar-logout-btn">ログアウト</button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <a th:href="@{/}">← フロントへ戻る</a>
+        </div>
+        <div class="admin-container">
+            <a th:href="@{/admin/contacts}" class="admin-btn admin-btn-outline">← 一覧へ戻る</a>
+
+            <div class="contact-detail-box">
+                <div class="contact-detail-header">
+                    <div class="contact-detail-name" th:text="${contact.name}">名前</div>
+                    <div class="contact-detail-meta" th:text="${contact.email}">メール</div>
+                    <div class="contact-detail-meta"
+                         th:text="${#temporals.format(contact.createdAt, 'yyyy年MM月dd日 HH:mm')}">日付</div>
+                    <div class="contact-detail-genre" th:text="${contact.genre} ?: 'その他'">ジャンル</div>
+                </div>
+
+                <div class="contact-detail-message" th:text="${contact.message}">メッセージ内容</div>
+
+                <div class="contact-detail-actions">
+                    <form th:action="@{/admin/contacts/{id}/toggle-read(id=${contact.id})}" method="post">
+                        <button type="submit"
+                                th:class="${contact.isRead} ? 'btn-toggle-read is-read' : 'btn-toggle-read'"
+                                th:text="${contact.isRead} ? '未読にする' : '既読にする'">既読にする</button>
+                    </form>
+                    <form th:action="@{/admin/contacts/{id}/delete(id=${contact.id})}" method="post">
+                        <button type="submit"
+                                class="admin-btn admin-btn-dark"
+                                onclick="return confirm('削除しますか？')">削除</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

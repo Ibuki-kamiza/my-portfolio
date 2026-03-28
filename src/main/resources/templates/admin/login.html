@@ -2,32 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理者ログイン</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
-<body>
+<body class="auth-wrapper">
 
-    <h1>管理者ログイン</h1>
+    <div class="auth-box">
+        <h1 class="auth-title">管理者ログイン</h1>
+        <p class="auth-subtitle">Portfolio Admin</p>
 
-    <div th:if="${param.error}">
-        <p>ユーザー名またはパスワードが違います</p>
-    </div>
-
-    <div th:if="${param.logout}">
-        <p>ログアウトしました</p>
-    </div>
-
-    <form th:action="@{/admin/login}" method="post">
-        <div>
-            <label for="username">ユーザー名</label>
-            <input type="text" id="username" name="username" required>
+        <div th:if="${param.registered}" class="alert-success">
+            登録が完了しました。ログインしてください。
         </div>
-        <div>
-            <label for="password">パスワード</label>
-            <input type="password" id="password" name="password" required>
+
+        <div th:if="${param.error}" class="alert-error">
+            ユーザー名またはパスワードが違います。
         </div>
-        <button type="submit">ログイン</button>
-    </form>
+
+        <div th:if="${param.logout}" class="alert-success">
+            ログアウトしました。
+        </div>
+
+        <form th:action="@{/admin/login}" method="post">
+            <div class="form-group">
+                <label class="form-label">ユーザー名</label>
+                <input type="text" name="username" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">パスワード</label>
+                <input type="password" name="password" class="form-input" required>
+            </div>
+            <button type="submit" class="admin-btn admin-btn-dark" style="width:100%;text-align:center">ログイン</button>
+        </form>
+    </div>
 
 </body>
 </html>
