@@ -126,3 +126,14 @@
         padding: 80px 24px;
     }
 }
+.work-back-link {
+    display: inline-block;
+    margin-bottom: 48px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--color-gray);
+}
+
+.work-back-link:hover {
+    color: var(--color-dark);
+}

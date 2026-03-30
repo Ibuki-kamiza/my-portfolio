@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title th:text="${work.title}">作品詳細</title>
-	    <link rel="stylesheet" th:href="@{/css/style.css}">
-	    <link rel="stylesheet" th:href="@{/css/works.css}">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${work.title}">作品詳細</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/works.css}">
+</head>
 <body>
 
-    <a th:href="@{/works}">作品一覧へ戻る</a>
+    <nav class="nav">
+        <div class="nav-logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/works}">Works</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+            <li><a th:href="@{/admin/login}" class="nav-admin-link">Admin</a></li>
+        </ul>
+    </nav>
 
-    <h1 th:text="${work.title}">タイトル</h1>
-    <p th:text="${work.description}">説明</p>
-    <p th:text="${work.techStack}">技術スタック</p>
+    <div class="work-detail">
+        <a th:href="@{/works}" class="work-back-link">← 作品一覧へ戻る</a>
 
-    <div th:if="${work.imageUrl}">
-        <img th:src="${work.imageUrl}" alt="作品画像">
+        <div th:if="${work.imageUrl}" class="work-detail-image">
+            <img th:src="${work.imageUrl}" th:alt="${work.title}">
+        </div>
+
+        <h1 class="work-detail-title" th:text="${work.title}">タイトル</h1>
+        <p class="work-detail-tech" th:text="${work.techStack}">技術スタック</p>
+        <p class="work-detail-description" th:text="${work.description}">説明</p>
+
+        <div class="work-detail-links">
+            <a th:if="${work.githubUrl}" th:href="${work.githubUrl}"
+               target="_blank" class="btn btn-dark">GitHub</a>
+            <a th:if="${work.demoUrl}" th:href="${work.demoUrl}"
+               target="_blank" class="btn btn-outline">Demo</a>
+        </div>
     </div>
 
-    <div th:if="${work.githubUrl}">
-        <a th:href="${work.githubUrl}" target="_blank">GitHubで見る</a>
-    </div>
-
-    <div th:if="${work.demoUrl}">
-        <a th:href="${work.demoUrl}" target="_blank">デモを見る</a>
-    </div>
-	<script th:src="@{/js/main.js}"></script>
-	    <script th:src="@{/js/animations.js}"></script>
-
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
 </body>
 </html>

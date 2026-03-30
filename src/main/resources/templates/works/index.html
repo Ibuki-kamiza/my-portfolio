@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>作品一覧</title>
-	    <link rel="stylesheet" th:href="@{/css/style.css}">
-	    <link rel="stylesheet" th:href="@{/css/works.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/works.css}">
 </head>
-<>
+<body>
 
-    <h1>作品一覧</h1>
-    <a th:href="@{/}">トップへ戻る</a>
+    <nav class="nav">
+        <div class="nav-logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/works}">Works</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+            <li><a th:href="@{/admin/login}" class="nav-admin-link">Admin</a></li>
+        </ul>
+    </nav>
 
-    <div th:each="work : ${works}">
-        <h2>
-            <a th:href="@{/works/{id}(id=${work.id})}" th:text="${work.title}">タイトル</a>
-        </h2>
-        <p th:text="${work.description}">説明</p>
-        <p th:text="${work.techStack}">技術スタック</p>
+    <div class="works-header container">
+        <p class="section-label">Works</p>
+        <h1 class="section-title">作品一覧</h1>
     </div>
-	<script th:src="@{/js/main.js}"></script>
-　　 <script th:src="@{/js/animations.js}"></script>
-	
 
+    <div class="container">
+        <div class="works-grid">
+            <a th:each="work : ${works}"
+               th:href="@{/works/{id}(id=${work.id})}"
+               class="work-card">
+                <div class="work-card-image">
+                    <img th:if="${work.imageUrl}" th:src="${work.imageUrl}" th:alt="${work.title}">
+                </div>
+                <div class="work-card-body">
+                    <h3 class="work-card-title" th:text="${work.title}">タイトル</h3>
+                    <p class="work-card-description" th:text="${work.description}">説明</p>
+                    <p class="work-card-tech" th:text="${work.techStack}">技術スタック</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
 </body>
 </html>
