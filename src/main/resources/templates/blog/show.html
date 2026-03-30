@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title th:text="${post.title}">ブログ記事</title>
-	    <link rel="stylesheet" th:href="@{/css/style.css}">
-	    <link rel="stylesheet" th:href="@{/css/blog.css}">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title}">ブログ記事</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/blog.css}">
+</head>
 <body>
 
-    <a th:href="@{/blog}">ブログ一覧へ戻る</a>
+    <nav class="nav">
+        <div class="nav-logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/works}">Works</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+            <li><a th:href="@{/admin/login}" class="nav-admin-link">Admin</a></li>
+        </ul>
+    </nav>
 
-    <h1 th:text="${post.title}">タイトル</h1>
-    <p th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</p>
+    <div class="blog-detail">
+        <a th:href="@{/blog}" class="blog-back-link">← ブログ一覧へ戻る</a>
 
-    <div th:text="${post.content}">内容</div>
-	<script th:src="@{/js/main.js}"></script>
-	<script th:src="@{/js/animations.js}"></script>
+        <div th:if="${post.imageUrl}" class="blog-detail-image">
+            <img th:src="${post.imageUrl}" th:alt="${post.title}">
+        </div>
 
+        <div class="blog-detail-date"
+             th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</div>
+        <h1 class="blog-detail-title" th:text="${post.title}">タイトル</h1>
+        <div class="blog-detail-content" th:text="${post.content}">内容</div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
 </body>
 </html>

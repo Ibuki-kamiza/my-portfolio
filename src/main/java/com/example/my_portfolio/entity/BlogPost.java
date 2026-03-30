@@ -36,6 +36,9 @@ public class BlogPost {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
 
+    @Column(name = "image_url", length = 255)
+    private String imageUrl;
+
     @Column(nullable = false)
     private Boolean published = false;
 

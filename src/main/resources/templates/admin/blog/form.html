@@ -19,7 +19,7 @@
         </ul>
         <div class="admin-sidebar-logout">
             <form th:action="@{/admin/logout}" method="post">
-                <button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;cursor:pointer;padding:0;">ログアウト</button>
+                <button type="submit" class="sidebar-logout-btn">ログアウト</button>
             </form>
         </div>
     </aside>
@@ -30,13 +30,27 @@
         </div>
         <div class="admin-container">
             <h1 th:text="${post.id} ? '記事を編集' : '記事を追加'">ブログフォーム</h1>
-            <a th:href="@{/admin/blog}" class="admin-btn admin-btn-outline" style="margin-bottom:32px;display:inline-block">一覧へ戻る</a>
+            <a th:href="@{/admin/blog}" class="admin-btn admin-btn-outline">一覧へ戻る</a>
+
             <div class="admin-form">
                 <form th:action="${post.id} ? @{/admin/blog/{id}/edit(id=${post.id})} : @{/admin/blog/new}"
-                      th:object="${post}" method="post">
+                      th:object="${post}" method="post" enctype="multipart/form-data">
+
                     <div class="form-group">
                         <label class="form-label">タイトル</label>
                         <input type="text" th:field="*{title}" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">アイキャッチ画像（ファイルアップロード）</label>
+                        <div th:if="${post.imageUrl}" class="blog-image-preview">
+                            <img th:src="${post.imageUrl}" alt="現在の画像">
+                        </div>
+                        <input type="file" name="imageFile" class="form-file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">画像URL（直接入力）</label>
+                        <input type="text" th:field="*{imageUrl}" class="form-input"
+                               placeholder="https://... またはアップロードで自動入力">
                     </div>
                     <div class="form-group">
                         <label class="form-label">内容</label>
@@ -45,15 +59,16 @@
                     <div class="form-group">
                         <div class="checkbox-group">
                             <input type="checkbox" th:field="*{published}" id="published">
-                            <label for="published" class="form-label" style="margin:0">公開する</label>
+                            <label for="published" class="form-label">公開する</label>
                         </div>
                     </div>
+
                     <button type="submit" class="admin-btn admin-btn-dark">保存</button>
                 </form>
             </div>
         </div>
     </div>
-	<script th:src="@{/js/admin.js}"></script>
 
+    <script th:src="@{/js/admin.js}"></script>
 </body>
 </html>

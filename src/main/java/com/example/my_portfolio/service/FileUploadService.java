@@ -17,6 +17,14 @@ public class FileUploadService {
     private String uploadDir;
 
     public String uploadProfileImage(MultipartFile file) throws IOException {
+        return uploadImage(file, "profile");
+    }
+
+    public String uploadBlogImage(MultipartFile file) throws IOException {
+        return uploadImage(file, "blog");
+    }
+
+    private String uploadImage(MultipartFile file, String folder) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
         String originalFilename = file.getOriginalFilename();
@@ -24,8 +32,8 @@ public class FileUploadService {
             ? originalFilename.substring(originalFilename.lastIndexOf("."))
             : ".jpg";
 
-        String filename = "profile_" + UUID.randomUUID() + extension;
-        Path uploadPath = Paths.get(uploadDir, "profile");
+        String filename = folder + "_" + UUID.randomUUID() + extension;
+        Path uploadPath = Paths.get(uploadDir, folder);
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -34,6 +42,6 @@ public class FileUploadService {
         Path filePath = uploadPath.resolve(filename);
         Files.copy(file.getInputStream(), filePath);
 
-        return "/uploads/profile/" + filename;
+        return "/uploads/" + folder + "/" + filename;
     }
 }

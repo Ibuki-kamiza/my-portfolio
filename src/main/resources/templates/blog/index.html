@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>ブログ</title>
-	    <link rel="stylesheet" th:href="@{/css/style.css}">
-	    <link rel="stylesheet" th:href="@{/css/blog.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/blog.css}">
 </head>
 <body>
 
-    <h1>ブログ</h1>
-    <a th:href="@{/}">トップへ戻る</a>
+    <nav class="nav">
+        <div class="nav-logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/works}">Works</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+            <li><a th:href="@{/admin/login}" class="nav-admin-link">Admin</a></li>
+        </ul>
+    </nav>
 
-    <div th:each="post : ${posts}">
-        <h2>
-            <a th:href="@{/blog/{id}(id=${post.id})}" th:text="${post.title}">タイトル</a>
-        </h2>
-        <p th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</p>
+    <div class="blog-header container">
+        <p class="section-label">Blog</p>
+        <h1 class="section-title">ブログ</h1>
     </div>
-	<script th:src="@{/js/main.js}"></script>
-	<script th:src="@{/js/animations.js}"></script>
 
+    <div class="container">
+        <div class="blog-grid">
+            <a th:each="post : ${posts}"
+               th:href="@{/blog/{id}(id=${post.id})}"
+               class="blog-card">
+                <div th:if="${post.imageUrl}" class="blog-card-image">
+                    <img th:src="${post.imageUrl}" th:alt="${post.title}">
+                </div>
+                <div class="blog-card-body">
+                    <div class="blog-card-date"
+                         th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd')}">日付</div>
+                    <div class="blog-card-title" th:text="${post.title}">タイトル</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
 </body>
 </html>
