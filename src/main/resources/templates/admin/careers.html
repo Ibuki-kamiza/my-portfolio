@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>キャリア管理</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-logo">Admin</div>
+        <ul class="admin-sidebar-links">
+            <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
+            <li><a th:href="@{/admin/profile}">プロフィール</a></li>
+            <li><a th:href="@{/admin/skills}">スキル</a></li>
+            <li><a th:href="@{/admin/careers}" class="active">キャリア</a></li>
+            <li><a th:href="@{/admin/works}">作品</a></li>
+            <li><a th:href="@{/admin/blog}">ブログ</a></li>
+            <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
+        </ul>
+        <div class="admin-sidebar-logout">
+            <form th:action="@{/admin/logout}" method="post">
+                <button type="submit" class="sidebar-logout-btn">ログアウト</button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <a th:href="@{/}">← フロントへ戻る</a>
+        </div>
+        <div class="admin-container">
+            <h1>キャリア管理</h1>
+
+            <div class="admin-form admin-form-mb">
+                <form th:action="@{/admin/careers/new}" th:object="${career}" method="post">
+                    <div class="career-form-grid">
+                        <div class="form-group">
+                            <label class="form-label">年</label>
+                            <input type="text" th:field="*{year}" class="form-input" placeholder="2020" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">タイトル</label>
+                            <input type="text" th:field="*{title}" class="form-input" required>
+                        </div>
+                        <button type="submit" class="admin-btn admin-btn-dark">追加</button>
+                    </div>
+                    <div class="form-group career-description-full">
+                        <label class="form-label">説明</label>
+                        <textarea th:field="*{description}" class="form-textarea" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>年</th>
+                        <th>タイトル</th>
+                        <th>説明</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="career : ${careers}">
+                        <td th:text="${career.year}">年</td>
+                        <td th:text="${career.title}">タイトル</td>
+                        <td th:text="${career.description}">説明</td>
+                        <td>
+                            <form th:action="@{/admin/careers/{id}/delete(id=${career.id})}" method="post">
+                                <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

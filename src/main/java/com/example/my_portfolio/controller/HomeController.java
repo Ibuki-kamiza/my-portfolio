@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.my_portfolio.repository.CareerRepository;
 import com.example.my_portfolio.repository.ProfileRepository;
 import com.example.my_portfolio.repository.SkillRepository;
 import com.example.my_portfolio.repository.WorkRepository;
@@ -17,6 +18,7 @@ public class HomeController {
     private final ProfileRepository profileRepository;
     private final SkillRepository skillRepository;
     private final WorkRepository workRepository;
+    private final CareerRepository careerRepository;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -24,6 +26,7 @@ public class HomeController {
             .ifPresent(profile -> model.addAttribute("profile", profile));
         model.addAttribute("skills", skillRepository.findAllByOrderByDisplayOrderAsc());
         model.addAttribute("works", workRepository.findByPublishedTrueOrderByCreatedAtDesc());
+        model.addAttribute("careers", careerRepository.findAllByOrderByDisplayOrderAsc());
         return "index";
     }
 }

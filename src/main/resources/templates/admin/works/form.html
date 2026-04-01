@@ -13,13 +13,14 @@
             <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
             <li><a th:href="@{/admin/profile}">プロフィール</a></li>
             <li><a th:href="@{/admin/skills}">スキル</a></li>
+            <li><a th:href="@{/admin/careers}">キャリア</a></li>
             <li><a th:href="@{/admin/works}" class="active">作品</a></li>
             <li><a th:href="@{/admin/blog}">ブログ</a></li>
             <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
         </ul>
         <div class="admin-sidebar-logout">
             <form th:action="@{/admin/logout}" method="post">
-                <button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;cursor:pointer;padding:0;">ログアウト</button>
+                <button type="submit" class="sidebar-logout-btn">ログアウト</button>
             </form>
         </div>
     </aside>
@@ -30,10 +31,12 @@
         </div>
         <div class="admin-container">
             <h1 th:text="${work.id} ? '作品を編集' : '作品を追加'">作品フォーム</h1>
-            <a th:href="@{/admin/works}" class="admin-btn admin-btn-outline" style="margin-bottom:32px;display:inline-block">一覧へ戻る</a>
+            <a th:href="@{/admin/works}" class="admin-btn admin-btn-outline">一覧へ戻る</a>
+
             <div class="admin-form">
                 <form th:action="${work.id} ? @{/admin/works/{id}/edit(id=${work.id})} : @{/admin/works/new}"
-                      th:object="${work}" method="post">
+                      th:object="${work}" method="post" enctype="multipart/form-data">
+
                     <div class="form-group">
                         <label class="form-label">タイトル</label>
                         <input type="text" th:field="*{title}" class="form-input" required>
@@ -47,8 +50,16 @@
                         <input type="text" th:field="*{techStack}" class="form-input" placeholder="Java, Spring Boot, MySQL">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">画像URL</label>
-                        <input type="text" th:field="*{imageUrl}" class="form-input">
+                        <label class="form-label">画像（ファイルアップロード）</label>
+                        <div th:if="${work.imageUrl}" class="blog-image-preview">
+                            <img th:src="${work.imageUrl}" th:alt="${work.title}">
+                        </div>
+                        <input type="file" name="imageFile" class="form-file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">画像URL（直接入力・Google Drive等）</label>
+                        <input type="text" th:field="*{imageUrl}" class="form-input"
+                               placeholder="https://lh3.googleusercontent.com/d/...">
                     </div>
                     <div class="form-group">
                         <label class="form-label">GitHub URL</label>
@@ -61,7 +72,7 @@
                     <div class="form-group">
                         <div class="checkbox-group">
                             <input type="checkbox" th:field="*{published}" id="published">
-                            <label for="published" class="form-label" style="margin:0">公開する</label>
+                            <label for="published" class="form-label">公開する</label>
                         </div>
                     </div>
                     <button type="submit" class="admin-btn admin-btn-dark">保存</button>
@@ -69,7 +80,7 @@
             </div>
         </div>
     </div>
-	<script th:src="@{/js/admin.js}"></script>
 
+    <script th:src="@{/js/admin.js}"></script>
 </body>
 </html>

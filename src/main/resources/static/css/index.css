@@ -62,3 +62,54 @@
         aspect-ratio: 4/3;
     }
 }
+.hero-buttons {
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+}
+
+.about-section {
+    background-color: #ffffff;
+}
+
+.about-text {
+    max-width: 600px;
+    color: var(--color-gray);
+    line-height: 2;
+}
+
+.about-github {
+    margin-top: 32px;
+}
+
+.works-section {
+    background-color: #ffffff;
+}
+
+.works-description {
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-top: 8px;
+}
+
+.works-links {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+}
+
+.works-link {
+    font-size: 13px;
+    text-decoration: underline;
+    color: var(--color-dark);
+}
+
+.works-more {
+    margin-top: 48px;
+    text-align: center;
+}
+
+.nav-admin-link {
+    font-size: 11px;
+    opacity: 0.5;
+}

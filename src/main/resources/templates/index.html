@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title th:text="${profile?.name} ?: 'Portfolio'">Portfolio</title>
-	    <link rel="stylesheet" th:href="@{/css/style.css}">
-	    <link rel="stylesheet" th:href="@{/css/index.css}">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${profile?.name} ?: 'Portfolio'">Portfolio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
 <body>
 
-    <!-- ナビゲーション -->
     <nav class="nav">
         <div class="nav-logo" th:text="${profile?.name} ?: 'Portfolio'">Portfolio</div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
+            <li><a href="#career">Career</a></li>
             <li><a href="#works">Works</a></li>
             <li><a th:href="@{/blog}">Blog</a></li>
             <li><a th:href="@{/contact}">Contact</a></li>
-			<li><a th:href="@{/admin/login}" style="font-size:11px;opacity:0.5">Admin</a></li>
+            <li><a th:href="@{/admin/login}" class="nav-admin-link">Admin</a></li>
         </ul>
     </nav>
 
-    <!-- ヒーロー -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -33,7 +32,7 @@
                     </h1>
                     <div class="section-divider"></div>
                     <p class="hero-subtitle" th:text="${profile?.bio} ?: 'Java Engineer'">Java Engineer</p>
-                    <div style="margin-top: 48px; display: flex; gap: 16px;">
+                    <div class="hero-buttons">
                         <a th:href="@{/works}" class="btn btn-dark">View Works</a>
                         <a th:href="@{/contact}" class="btn btn-outline">Contact</a>
                     </div>
@@ -45,35 +44,62 @@
         </div>
     </section>
 
-    <!-- About -->
-    <section class="section" id="about" style="background-color: #ffffff;">
+    <section class="section about-section" id="about">
         <div class="container">
             <p class="section-label">About</p>
             <h2 class="section-title">私について</h2>
-            <p style="max-width: 600px; color: #6b6b6b; line-height: 2;"
-               th:text="${profile?.bio} ?: ''"></p>
-            <div th:if="${profile?.githubUrl}" style="margin-top: 32px;">
+            <p class="about-text" th:text="${profile?.bio} ?: ''"></p>
+            <div th:if="${profile?.githubUrl}" class="about-github">
                 <a th:href="${profile.githubUrl}" target="_blank" class="btn btn-outline">GitHub</a>
             </div>
         </div>
     </section>
 
-    <!-- Skills -->
     <section class="section" id="skills">
         <div class="container">
             <p class="section-label">Skills</p>
             <h2 class="section-title">スキル</h2>
             <div class="skills-grid">
                 <div class="skill-card" th:each="skill : ${skills}">
+                    <div class="skill-circle-wrapper">
+                        <svg class="skill-circle" viewBox="0 0 80 80">
+                            <circle class="skill-circle-bg" cx="40" cy="40" r="28"/>
+                            <circle class="skill-progress"
+                                    cx="40" cy="40" r="28"
+                                    th:data-level="${skill.level} != null ? ${skill.level} : 50"/>
+                        </svg>
+                        <div class="skill-level-text"
+                             th:text="${skill.level != null} ? ${skill.level} + '%' : ''"></div>
+                    </div>
                     <div class="skill-name" th:text="${skill.name}">スキル名</div>
                     <div class="skill-category" th:text="${skill.category}">カテゴリ</div>
+                    <div class="skill-certification"
+                         th:if="${skill.certification}"
+                         th:text="${skill.certification}">資格</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Works -->
-    <section class="section" id="works" style="background-color: #ffffff;">
+    <section class="section" id="career">
+        <div class="container">
+            <p class="section-label">Career</p>
+            <h2 class="section-title">経歴</h2>
+            <div class="timeline">
+                <div class="timeline-item" th:each="career : ${careers}">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year" th:text="${career.year}">2020</div>
+                        <div class="timeline-title" th:text="${career.title}">タイトル</div>
+                        <div class="timeline-description" th:if="${career.description}"
+                             th:text="${career.description}">説明</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section works-section" id="works">
         <div class="container">
             <p class="section-label">Works</p>
             <h2 class="section-title">作品</h2>
@@ -84,25 +110,23 @@
                     </div>
                     <div class="work-card-body">
                         <h3 class="work-card-title" th:text="${work.title}">タイトル</h3>
-                        <p style="font-size: 14px; color: #6b6b6b; margin-top: 8px;"
-                           th:text="${work.description}">説明</p>
+                        <p class="works-description" th:text="${work.description}">説明</p>
                         <p class="work-card-tech" th:text="${work.techStack}">技術スタック</p>
-                        <div style="margin-top: 16px; display: flex; gap: 16px;">
+                        <div class="works-links">
                             <a th:if="${work.githubUrl}" th:href="${work.githubUrl}"
-                               target="_blank" style="font-size: 13px; text-decoration: underline;">GitHub</a>
+                               target="_blank" class="works-link">GitHub</a>
                             <a th:if="${work.demoUrl}" th:href="${work.demoUrl}"
-                               target="_blank" style="font-size: 13px; text-decoration: underline;">Demo</a>
+                               target="_blank" class="works-link">Demo</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 48px; text-align: center;">
+            <div class="works-more">
                 <a th:href="@{/works}" class="btn btn-outline">View All Works</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="section">
         <div class="container">
             <div class="footer">
@@ -111,9 +135,8 @@
             </div>
         </div>
     </footer>
-	<script th:src="@{/js/main.js}"></script>
-	    <script th:src="@{/js/animations.js}"></script>
-	</body>
 
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/animations.js}"></script>
 </body>
 </html>
