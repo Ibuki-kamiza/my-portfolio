@@ -579,3 +579,151 @@ img {
     margin-top: 6px;
     letter-spacing: 0.05em;
 }
+@media (max-width: 768px) {
+    .nav {
+        padding: 16px 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .nav-links li a {
+        font-size: 11px;
+    }
+
+    .nav-admin-link {
+        display: none;
+    }
+
+    .container {
+        padding: 0 24px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .works-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+        gap: 32px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+@media (max-width: 768px) {
+    .nav {
+        padding: 16px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .nav-links {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .nav-links li a {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+    }
+
+    .nav-admin-link {
+        display: none;
+    }
+
+    .container {
+        padding: 0 24px;
+    }
+
+    .hero {
+        padding: 80px 0 60px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn {
+        text-align: center;
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .works-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .timeline {
+        padding-left: 24px;
+    }
+
+    .footer-links {
+        gap: 32px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+}
