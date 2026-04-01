@@ -126,15 +126,33 @@
             </div>
         </div>
     </section>
-
-    <footer class="section">
-        <div class="container">
-            <div class="footer">
-                <p class="footer-text" th:text="${profile?.name} ?: 'Portfolio'">Portfolio</p>
-                <p class="footer-text">© 2026 All Rights Reserved</p>
-            </div>
-        </div>
-    </footer>
+	
+	<footer class="section">
+	        <div class="container">
+	            <div class="footer-links">
+	                <div class="footer-links-group">
+	                    <a href="#about">About</a>
+	                    <a href="#skills">Skills</a>
+	                </div>
+	                <div class="footer-links-group">
+	                    <a href="#career">Career</a>
+	                    <a href="#works">Works</a>
+	                </div>
+	                <div class="footer-links-group">
+	                    <a th:href="@{/blog}">Blog</a>
+	                    <a th:href="@{/contact}">Contact</a>
+	                </div>
+	                <div class="footer-links-group">
+	                    <a th:if="${profile?.githubUrl}" th:href="${profile.githubUrl}" target="_blank">GitHub</a>
+	                    <a th:href="@{/admin/login}" class="nav-admin-link">Admin</a>
+	                </div>
+	            </div>
+	            <div class="footer-bottom">
+	                <p class="footer-copyright">© 2026 All Rights Reserved.</p>
+	            </div>
+	        </div>
+	    </footer>
+    
 
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/animations.js}"></script>

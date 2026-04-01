@@ -29,7 +29,7 @@
 
         <h1 class="work-detail-title" th:text="${work.title}">タイトル</h1>
         <p class="work-detail-tech" th:text="${work.techStack}">技術スタック</p>
-        <p class="work-detail-description" th:text="${work.description}">説明</p>
+        <div class="work-detail-description" th:utext="${work.description}">説明</div>
 
         <div class="work-detail-links">
             <a th:if="${work.githubUrl}" th:href="${work.githubUrl}"

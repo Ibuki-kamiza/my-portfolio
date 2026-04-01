@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>ブログ編集</title>
     <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet">
 </head>
 <body>
 
@@ -13,6 +14,7 @@
             <li><a th:href="@{/admin/dashboard}">ダッシュボード</a></li>
             <li><a th:href="@{/admin/profile}">プロフィール</a></li>
             <li><a th:href="@{/admin/skills}">スキル</a></li>
+            <li><a th:href="@{/admin/careers}">キャリア</a></li>
             <li><a th:href="@{/admin/works}">作品</a></li>
             <li><a th:href="@{/admin/blog}" class="active">ブログ</a></li>
             <li><a th:href="@{/admin/contacts}">お問い合わせ</a></li>
@@ -34,7 +36,8 @@
 
             <div class="admin-form">
                 <form th:action="${post.id} ? @{/admin/blog/{id}/edit(id=${post.id})} : @{/admin/blog/new}"
-                      th:object="${post}" method="post" enctype="multipart/form-data">
+                      th:object="${post}" method="post" enctype="multipart/form-data"
+                      id="blog-form">
 
                     <div class="form-group">
                         <label class="form-label">タイトル</label>
@@ -50,11 +53,12 @@
                     <div class="form-group">
                         <label class="form-label">画像URL（直接入力）</label>
                         <input type="text" th:field="*{imageUrl}" class="form-input"
-                               placeholder="https://... またはアップロードで自動入力">
+                               placeholder="https://lh3.googleusercontent.com/d/...">
                     </div>
                     <div class="form-group">
                         <label class="form-label">内容</label>
-                        <textarea th:field="*{content}" class="form-textarea" rows="20"></textarea>
+                        <div id="quill-blog-editor"></div>
+                        <input type="hidden" th:field="*{content}" id="content-input">
                     </div>
                     <div class="form-group">
                         <div class="checkbox-group">
@@ -62,13 +66,14 @@
                             <label for="published" class="form-label">公開する</label>
                         </div>
                     </div>
-
                     <button type="submit" class="admin-btn admin-btn-dark">保存</button>
                 </form>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
     <script th:src="@{/js/admin.js}"></script>
+    <script th:src="@{/js/blog-editor.js}"></script>
 </body>
 </html>
